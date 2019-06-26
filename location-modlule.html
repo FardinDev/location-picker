@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    #map{
+        width: 100vw;
+        height: 50vh;
+    }
+    html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+    </style>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript" src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBcVQO3dxqUFjgjyWh51BKqD1Bj87-TgV8&amp;libraries=places'></script>
+</head>
+<body>
+    <div class="tab">
+        <h5>Location</h5>
+    
+    
+        <p><input class="form-control col-md-6" type="text" id="map-address" name="pid_collect_google_address"></p>
+        <div id="map"></div>
+    
+        <p>
+            <input type="hidden" id="map-lat" />
+        </p>
+        <p>
+            <input type="hidden" id="map-lon" />
+        </p>
+    
+        <p>
+            <input class="form-control col-md-6" type="text" id="lat" name="pid_collect_lat_long">
+        </p>
+        
+        
+        <script src="js/locationpicker.jquery.js"></script>              
+    <script>
+
+$.fn.locationpicker.defaults = {
+        location: {
+            latitude: 23.8103,
+            longitude: 90.4125
+        },
+        locationName: "",
+        radius: 500,
+        zoom: 15,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        styles: [],
+        mapOptions: {},
+        scrollwheel: true,
+        inputBinding: {
+            latitudeInput: null,
+            longitudeInput: null,
+            radiusInput: null,
+            locationNameInput: null
+        },
+     
+        enableAutocompleteBlur: true,
+        autocompleteOptions: null,
+        addressFormat: "ST_NAME",
+        enableReverseGeocode: true,
+        draggable: true,
+        onchanged: function(currentLocation, radius, isMarkerDropped) {},
+        onlocationnotfound: function(locationName) {},
+        oninitialized: function(component) {},
+        markerIcon: undefined,
+        markerDraggable: true,
+        markerVisible: true
+    };
+    
+            $('#map').locationpicker({
+                        enableAutocomplete: true,
+                        enableReverseGeocode: true,
+                        radius: 0,
+                        inputBinding: {
+                            latitudeInput: $('#map-lat'),
+                            longitudeInput: $('#map-lon'),
+                            radiusInput: $('#map-radius'),
+                            locationNameInput: $('#map-address')
+                        },
+                        onchanged: function (currentLocation, radius, isMarkerDropped) {
+    
+    
+                            document.getElementById("lat").value = document.getElementById("map-lat").value + ',' + document.getElementById("map-lon").value;
+    
+                            var addressComponents = $(this).locationpicker('map').location.addressComponents;
+    
+                            
+                            updateControls(addressComponents); //Data
+                        }
+                    });
+    
+                    function updateControls(addressComponents) {
+    
+                    }
+    
+    
+    
+    
+                </script>
+    
+    
+    </div>
+
+</body>
+</html>
